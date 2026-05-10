@@ -1,0 +1,27 @@
+import os
+import rtconfig
+from building import *
+
+cwd = GetCurrentDir()
+
+path = [cwd + '/Device/Inc']
+
+src = [
+    os.path.join('Device', 'Src', 'system_NS800RT7xxx.c'),
+]
+
+toolchain_src_dir = {
+    'gcc': os.path.join('Device', 'Src', 'gcc'),
+    'armcc': os.path.join('Device', 'Src', 'arm'),
+    'armclang': os.path.join('Device', 'Src', 'arm'),
+    'iccarm': os.path.join('Device', 'Src', 'iar'),
+}
+
+selected_dir = toolchain_src_dir.get(rtconfig.PLATFORM)
+if selected_dir:
+    src += Glob(os.path.join(selected_dir, '*'))
+
+group = DefineGroup('Device', src, depend=[''], CPPPATH=path)
+group = group + SConscript(os.path.join('StdDriver', 'SConscript'))
+
+Return('group')

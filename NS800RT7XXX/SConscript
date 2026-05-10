@@ -10,16 +10,16 @@ src = [
     os.path.join('Device', 'Src', 'system_NS800RT7xxx.c'),
 ]
 
-toolchain_src_dir = {
-    'gcc': os.path.join('Device', 'Src', 'gcc'),
-    'armcc': os.path.join('Device', 'Src', 'arm'),
-    'armclang': os.path.join('Device', 'Src', 'arm'),
-    'iccarm': os.path.join('Device', 'Src', 'iar'),
+toolchain_startup = {
+    'gcc': os.path.join('Device', 'Src', 'gcc', 'startup_NS800RT7xxx.S'),
+    'armcc': os.path.join('Device', 'Src', 'arm', 'startup_NS800RT7xxx.s'),
+    'armclang': os.path.join('Device', 'Src', 'arm', 'startup_NS800RT7xxx.s'),
+    'iccarm': os.path.join('Device', 'Src', 'iar', 'startup_NS800RT7xxx.s'),
 }
 
-selected_dir = toolchain_src_dir.get(rtconfig.PLATFORM)
-if selected_dir:
-    src += Glob(os.path.join(selected_dir, '*'))
+startup_src = toolchain_startup.get(rtconfig.PLATFORM)
+if startup_src:
+    src.append(startup_src)
 
 group = DefineGroup('Device', src, depend=[''], CPPPATH=path)
 group = group + SConscript(os.path.join('StdDriver', 'SConscript'))

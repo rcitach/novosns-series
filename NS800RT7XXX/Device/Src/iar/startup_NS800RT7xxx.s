@@ -1,5 +1,12 @@
-; Auto-generated from Device/Src/arm/startup_NS800RT7xxx.s
-; IAR startup file for NS800RT7xxx
+/*
+ * Copyright (c) 2006-2026, RT-Thread Development Team
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Change Logs:
+ * Date           Author       Notes
+ * 2026-05-10     rcitach      the first version
+ */
 
         MODULE  ?cstartup
 
